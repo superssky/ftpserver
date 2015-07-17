@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sql-config> 
+<defaultDB>oracle</defaultDB>
+<mysql> 
+<insertSql>insert ignore into test(menu, mode, imgurl, imgname, imgset, mark, sort, isself, isload, createtime, ip) values(?,?,?,?,?,?,?,?,?,?,?)</insertSql> 
+<selectSql>select distinct 1 from test where imgurl = ? </selectSql> 
+<deleteSql>delete from test where isload = &apos;0&apos;  and createTime+1000000 &lt; sysdate()+0 </deleteSql> 
+<updateSql>update test set isload = &apos;1&apos;  where imgurl = ? and ip = ? </updateSql> 
+</mysql> 
+<sqlserver> 
+<insertSql>insert into test(menu, mode, imgurl, imgname, imgset, mark, sort, isself, isload, createtime, ip) values(?,?,?,?,?,?,?,?,?,?,?)</insertSql> 
+<selectSql>select distinct 1 from test where imgurl = ? </selectSql> 
+<deleteSql>delete from test where isload = &apos;0&apos;  and dateadd(day,1,createTime) &lt; getdate() </deleteSql> 
+<updateSql>update test set isload = &apos;1&apos;  where imgurl = ? and ip = ? </updateSql> 
+</sqlserver> 
+<oracle> 
+<insertSql>insert /*+ignore_row_on_dupkey_index(test(menu,submode,imgurl))*/ into test(menu, submode, imgurl, imgname, imgset, mark, sort, isself, isload, createtime, ip) values(?,?,?,?,?,?,?,?,?,?,?)</insertSql> 
+<selectSql>select distinct isload from test where imgurl = ?</selectSql> 
+<deleteSql>delete from test where isload = &apos;0&apos;  and createTime+1 &lt; sysdate </deleteSql> 
+<updateSql>update test set isload = &apos;1&apos;  where imgurl = ? and ip = ? </updateSql> 
+</oracle> 
+</sql-config> 
